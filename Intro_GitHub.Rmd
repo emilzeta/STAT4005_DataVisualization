@@ -1,0 +1,18 @@
+---
+title: "Intro to GitHub"
+author: "Emil Zetterquist"
+date: "1/31/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+
+ggplot(data = mtcars, aes(x = mpg)) +
+  geom_histogram(colour = "black", fill = "white", bins = 15)
+```
+
