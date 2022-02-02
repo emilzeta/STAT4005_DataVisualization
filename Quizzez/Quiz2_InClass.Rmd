@@ -1,0 +1,70 @@
+---
+title: "Quiz2 In-Class"
+author: "Emil Zetterquist"
+date: "2/2/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE)
+```
+
+```{r}
+library(tidyverse)
+library(readxl)
+library(here)
+
+df <- read_excel(here("data/slu_graduates_17_21.xlsx"))
+
+## fixes error in the data
+df <- df %>% mutate(across(everything(),
+                           .fns = ~replace(., . ==  "STATS" , "STAT")))
+
+df_long <- df %>% pivot_longer(3:8, names_to = "type", values_to = "discipline")
+
+df_major <- df_long %>% 
+  filter(type == "major1" | type == "major2" | type == "major3")
+```
+
+Question 1:
+
+```{r}
+df_q1 <- df_major %>%
+  filter(!is.na(discipline)) %>%
+  group_by(discipline) %>%
+  summarize(n = n()) %>%
+  ungroup() %>%
+  mutate(disc_ord = fct_reorder(.f = discipline, .x = n))
+
+ggplot(data = df_q1, aes(x = disc_ord, y = n)) +
+  geom_point() +
+  geom_segment(x = disc_ord, xend = disc_ord,
+               y = 0, yend = n) +
+  coord_flip()
+```
+
+Question 2:
+
+```{r}
+statmajors <- df %>% filter(major1 == "STAT" | major2 == "STAT" | major3 == "STAT")
+
+statmajors_long <- statmajors %>% pivot_longer(c(3,4,5,6,7,8),
+                                 values_to = "discipline",
+                                 names_to = "type") %>%
+  filter(type == "minor1"| type == "minor2" | type == "minor3") %>%
+  filter(!is.na(discipline))
+
+statgraph <- statmajors_long %>% 
+  group_by(discipline) %>% 
+  summarise(count_dis = n())
+
+statgraph2 <- statgraph %>% 
+  mutate(discipline_ord = fct_reorder(.f = discipline, .x = count_dis)) %>% print()
+
+
+ggplot(data = statgraph2, aes(x = discipline_ord,
+                             y = count_dis)) +
+  geom_col() +
+  coord_flip()
+```
+
