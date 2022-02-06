@@ -1,0 +1,62 @@
+---
+title: "Mapping"
+author: "Emil Zetterquist"
+date: "2/6/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### 8.1.2
+
+Exercise 1:
+
+Stand Your Ground: This graph is unethical because it is a direct attempt to mislead people into thinking something when the opposite is true. In part 8.3 they talk about this graph being released right after an important trial regarding the issue which is even more disturbing.
+
+<br>
+
+Exercise 2:
+
+3. Building a diverse team will make sure that the team will consider many more thoughts so that one perspective doesn't get prioritized.
+
+10. Respecting critisism and haviong open discussions about errors make sure that you don't publish things that might be misleading.
+
+<br>
+
+Exercise 3:
+
+a) <https://www.bing.com/images/search?view=detailV2&ccid=yhOOHI2n&id=05508C2AACEA8F165728AA70C0187DEC19775133&thid=OIP.yhOOHI2nkyDTwr_mGJlTYAHaFj&mediaurl=https%3a%2f%2fs.yimg.com%2fuu%2fapi%2fres%2f1.2%2fkCwf1w5yyOVnxayMrCoMyg--%7eB%2faD0xMTg4O3c9MTU4NDthcHBpZD15dGFjaHlvbg--%2fhttps%3a%2f%2fmedia.zenfs.com%2fen%2fbusiness_insider_articles_888%2fa9b31543ad7e490e3a93c176e719e050&cdnurl=https%3a%2f%2fth.bing.com%2fth%2fid%2fR.ca138e1c8da79320d3c2bfe618995360%3frik%3dM1F3Gex9GMBwqg%26pid%3dImgRaw%26r%3d0&exph=1188&expw=1584&q=covid+vaccine+efficacy+graph&simid=607991374463908891&FORM=IRPRST&ck=F14EC017E3FCD9BC2BB1E48C9D032865&selectedIndex=2&ajaxhist=0&ajaxserp=0>
+
+b) <https://www.bing.com/images/search?view=detailV2&ccid=FaaLMsBK&id=76110658718EAC87198E9775661AA2653A53335C&thid=OIP.FaaLMsBKy79zIiIG7x1uOgHaGm&mediaurl=https%3a%2f%2fs.yimg.com%2fny%2fapi%2fres%2f1.2%2fEvCFk0GRnJC9eukYP4c37w--%7eA%2fYXBwaWQ9aGlnaGxhbmRlcjtzbT0xO3c9ODAw%2fhttps%3a%2f%2fmedia.zenfs.com%2fen%2fsnappa_science_169%2f9ac4f110563bcef0e23a079a65a7c530&cdnurl=https%3a%2f%2fth.bing.com%2fth%2fid%2fR.15a68b32c04acbbf73222206ef1d6e3a%3frik%3dXDNTOmWiGmZ1lw%26pid%3dImgRaw%26r%3d0&exph=571&expw=640&q=covid+vaccine+not+effective+graph&simid=608051216234651857&FORM=IRPRST&ck=C0B5573ADEF96BABD0803446196EBBD9&selectedIndex=1&ajaxhist=0&ajaxserp=0>
+
+<br> <br> <br>
+
+### 8.2
+
+Exercise 1:
+
+I think the second one with individual points becuase in my opinion the individual cases are more important than the density of them.
+
+<br>
+
+Exercise 2:
+
+<br>
+
+Exercise 3:
+
+Humans are the center of algorithms. Although they are meant to be value neutral, the humans behing the algorithm is what shapes it.
+
+An ethical visualization goes out of its way to make sure that we are not cousing harm is misleading people, either intentionally or intentionally. 
+
+The goal of our visualization should be to increase understanding while minimizing harm.
+
+<br>
+
+Exercise 4:
+
+By showing us the loss of years lived instead of the cases of gun violence, the visualization leads us to think about the data in a more emotional way than we might have before by just looking at a simple statistic.
+
+
