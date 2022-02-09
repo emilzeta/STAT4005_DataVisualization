@@ -1,0 +1,39 @@
+---
+title: "Quiz3 InClass"
+author: "Emil Zetterquist"
+date: "2/9/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Question 1:
+
+The commits don't match up so we have to maybe clear our Git window and try again.
+
+<br>
+
+### Question 2:
+
+It's easy to share a project and work with someone else. It's a nice way of saving a certain state of your project so that if you make an error and need to backtrack you can do so.
+
+<br>
+
+### Question 3:
+
+I think the 12th point "Help others to understand the most useful and appropriate applications of data to solve real-world problems", might be the hardes one to execute because it's so up to interpretation. Depending on your audience the best way to help people understand your data will change.
+
+<br>
+
+### Question 4:
+
+They made a graph of how many total years of life has been stolen from gun violence instead of just showing a simple graph of gun violence over time. I guess an arguement against this kind of emotional graph is that it becomes so focused on showing one thing and spark emotion among people that other parts of the data can disappear. For example this graph didn't do a good job in showing the trend over the last few years.
+
+<br>
+
+### Question 5:
+
+
+
