@@ -1,0 +1,36 @@
+---
+title: "Quiz3 Takehome"
+author: "Emil Zetterquist"
+date: "2/8/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+“All work presented is my own, and I have followed all rules for collaboration.”
+
+<br> <br> <br>
+
+### Exercise 1:
+
+After going through the principles, it seems like it is an honest mistake and not really an unethical action. I do however think that the exclusion of data points should have been emphasised more by principle. Still, I don't think this data was deliberately misleading people.
+
+<br>
+
+### Exercise 2:
+
+<https://www.bing.com/images/search?view=detailV2&ccid=DQ46Aq8i&id=DE6DCE29DC7016CCB148AF06026B06F4E376F99D&thid=OIP.DQ46Aq8i2aPzVyIXSMB8yQHaHr&mediaurl=https%3a%2f%2fwww.statisticshowto.com%2fwp-content%2fuploads%2f2014%2f01%2fusa-today-2.png&cdnurl=https%3a%2f%2fth.bing.com%2fth%2fid%2fR.0d0e3a02af22d9a3f357221748c07cc9%3frik%3dnfl24%252fQGawIGrw%26pid%3dImgRaw%26r%3d0%26sres%3d1%26sresct%3d1%26srh%3d799%26srw%3d771&exph=415&expw=400&q=Misleading+Graphs+Real&simid=608030016278114536&FORM=IRPRST&ck=40815E553965D21E5B6C4C7E345CA70C&selectedIndex=31&ajaxhist=0&ajaxserp=0>
+
+This graph is unethical because it has been modified to make people think a cerrtain way. The y-axis starts at 50 instead of 0, making it look like a way bigger difference than it really is.
+
+<br>
+
+### Exercise 3:
+
+* Commit: Backing up your version of your project
+
+* Push: Send it to GitHub
+
+* Pull: Pull the data from GitHub to  your computer.
