@@ -1,0 +1,41 @@
+---
+title: "Quiz 4 Takehome"
+author: "Emil Zetterquist"
+date: "2/15/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+  “All work presented is my own, and I have followed all rules for collaboration.”
+  - Emil Zetterquist
+  
+  * Collaborated with Claire Dudley & Kaden Pickering
+  
+  <br> <br> <br>
+
+
+```{r}
+library(leaflet)
+library(tidyverse)
+us.cities <- maps::us.cities
+
+capital_df <- us.cities %>% filter(capital != 0)
+
+content <- capital_df %>%
+  mutate(popup = capital_df$name)
+
+capital_map <- leaflet(capital_df) %>%
+  setView(lng = -98.583, lat = 39.833, zoom = 4) %>% 
+  addTiles() %>% 
+  addProviderTiles(providers$Stamen.Watercolor) %>% 
+  addMarkers(lng = capital_df$long, lat = capital_df$lat,
+             clusterOptions = markerClusterOptions(),
+             popup = paste("Name:", capital_df$name,
+                           "<br>", "Population:", capital_df$pop, "<br>"))
+capital_map
+```
+  
+  
