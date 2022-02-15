@@ -1,0 +1,102 @@
+---
+title: "Exercises 6.6"
+author: "Emil Zetterquist"
+date: "2/15/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE)
+```
+
+* Worked with Claire Dudley & Kaden Pickering
+
+### 1
+
+```{r}
+library(maps)
+library(tidyverse)
+library(here)
+
+hpi_df <- read_csv(here("hpi-tidy.csv"))
+world_df <- ggplot2::map_data("world")
+world_df <- world_df %>% rename("Country" = region)
+
+world_full <- left_join(world_df, hpi_df, by = "Country")
+
+ggplot(data = world_full,
+            mapping = aes(x = long, y = lat,
+                          group = group,
+                          fill = Wellbeing)) +
+  geom_polygon(colour = "black") +
+ coord_map(projection = "mercator") + 
+  theme_void() +
+  scale_fill_viridis_b()
+```
+
+<br> 
+
+
+### 2.
+
+```{r}
+world_full <- world_full %>%
+  mutate(across("Country",
+                str_replace, "USA", "United States of America"))
+```
+
+
+<br>
+
+### 3.
+
+```{r}
+ggplot(data = world_full,
+            mapping = aes(x = long, y = lat,
+                          group = group,
+                          fill = Wellbeing)) +
+  geom_polygon(colour = "black") +
+ coord_map(projection = "mercator",
+           xlim = c(-180, 180)) + 
+  theme_void() +
+  scale_fill_viridis_b()
+```
+
+<br>
+
+### 4
+
+The closer the countries get to the poles, the larger the country appears to be compared to its true size. Therefor greenland appears to be as big as Africa, even though that isn't true.
+
+<br>
+
+### 5
+
+```{r}
+ggplot(data = world_full,
+            mapping = aes(x = long, y = lat,
+                          group = group,
+                          fill = Wellbeing)) +
+  geom_polygon(colour = "black") +
+ coord_map(projection = "globular",
+           xlim = c(-180, 180)) + 
+  theme_void() +
+  scale_fill_viridis_b()
+```
+
+```{r}
+ggplot(data = world_full,
+            mapping = aes(x = long, y = lat,
+                          group = group,
+                          fill = Wellbeing)) +
+  geom_polygon(colour = "black") +
+ coord_map(projection = "gilbert",
+           xlim = c(-180, 180)) + 
+  theme_void() +
+  scale_fill_viridis_b()
+```
+
+<br>
+
+The size of greenland changes dramatically between all the alternative, *gilbert* being the smallest and *mercator* being the biggest
+
