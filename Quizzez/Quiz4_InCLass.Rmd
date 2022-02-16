@@ -1,0 +1,37 @@
+---
+title: "Quiz 4 In Class"
+author: "Emil Zetterquist"
+date: "2/16/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+library(here)
+library(maps)
+alcohol_df <- read_csv(here("data/alcohol.csv"))
+
+world_df <- ggplot2::map_data("world")
+world_df <- world_df %>% rename("country" = region)
+alcohol_full <- left_join(world_df, alcohol_df, by = "country")
+
+ggplot(data = alcohol_full,
+            mapping = aes(x = long, y = lat,
+                          group = group,
+                          fill = beer_servings)) +
+  geom_polygon(colour = "black") +
+ coord_map(projection = "gilbert",
+           xlim = c(-180, 180)) + 
+  theme_void() +
+  scale_fill_viridis_b()
+```
+
+### Question 2:
+
+If we wanted to see if there's been a trend over time with alcohol consumption we might want to make a line graoh instead of a map.
+
+<br> <br> <br> <br>
