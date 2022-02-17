@@ -1,0 +1,30 @@
+---
+title: "Section 9.1"
+author: "Emil Zetterquist"
+date: "2/16/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Exercise 1:
+
+You can change the sample size, intercept, slope and st.dev of residuals. 
+
+<br> <br> 
+
+### Exercise 2:
+
+The outputs are both graphs and a regression table. 
+
+<br> <br>
+
+### Exercise 3:
+
+I chose a NCAA swim team finder. 
+
+In the app the output comes out as schools/city names of the swim teams and it has many things that the app allows you to change including sex, division, region type of event, rank of the school etc.
+
+I found it interesting that there were a lot less D2 schools than D1 and D3. I'm guessing this is because of some NCAA funkiness.
