@@ -1,0 +1,51 @@
+---
+title: "Quiz 5 Take Home"
+author: "Emil Zetterquist"
+date: "2/22/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+```{r}
+library(tidyverse)
+library(here)
+stat_df <- read.csv(here("data/stat113_survey.csv"))
+```
+
+
+```{r}
+fb_stat <- stat_df %>% filter(!is.na(Facebook)) %>%
+  separate(time_both, into = c("semester", "year"),
+                               sep = 1) %>%
+  arrange(year, desc(semester)) %>%
+  unite(col = "time_both", c(semester, year)) %>%
+  mutate(time_both = fct_inorder(time_both))
+
+ggplot(data = fb_stat, aes(y = Facebook,
+                           x = time_both)) +
+  geom_histogram(stat = "identity") +
+  coord_flip() +
+  labs(x = "Semester",
+       y = "Number of Friends on FaceBook")
+
+```
+
+```{r}
+fb2_df <- fb_stat %>% mutate(fb_ind = if_else(Facebook > 0, 
+                                    true = 1,
+                                    false = 0)) %>%
+  group_by(time_both) %>%
+  summarise(fb_prop = mean(fb_ind))
+
+ggplot(data = fb2_df, aes(x = time_both,
+                          y = fb_prop)) +
+  geom_point() +
+  labs(x = "Semester",
+       y = "Proportion of Students with Facebook")
+
+# I really wanted to make a line plot but it doesn't work for some reason. Would you now why that is the case?
+```
+
