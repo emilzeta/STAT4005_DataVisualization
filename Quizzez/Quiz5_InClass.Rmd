@@ -1,0 +1,58 @@
+---
+title: "Quiz 5 In Class"
+author: "Emil Zetterquist"
+date: "2/23/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+“All work presented is my own. I have not communicated with or worked with anyone else on this quiz.”
+
+- Emil Zetterquist
+
+
+### Question 1:
+
+The first graph is more constructive. You should avoid plotting everages as bar plats because a lot of the information in the data disappears (for example variability).
+
+<br> <br>
+
+### Question 2
+
+```{r}
+library(here)
+library(tidyverse)
+hpi_df <- read_csv(here("data/hpi-tidy.csv"))
+
+hpi_df %>% print(width = Inf)
+
+hpi_q2 <- hpi_df %>%
+  group_by(Region) %>%
+  summarize(avg_footprint = mean(Footprint)) %>%
+  mutate(Region = fct_reorder(Region, avg_footprint))
+
+ggplot(data = hpi_q2, aes(y = avg_footprint,
+                          x = Region)) +
+  geom_bar(stat = "identity") +
+  coord_flip() +
+  labs(x = "Region",
+       y = "Footprint")
+```
+
+```{r}
+
+ggplot(data = hpi_df, aes(y = Footprint,
+                          x = Region)) +
+  geom_point() +
+  coord_flip() +
+  geom_point(data = hpi_q2, aes(y = avg_footprint,
+                                x = Region),
+             colour = "yellow",
+             size = 2.5)
+
+#Yellow is the Average Footprint
+```
+
