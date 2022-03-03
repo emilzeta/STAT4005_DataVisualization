@@ -1,0 +1,62 @@
+---
+title: "Homework 10.1"
+author: "Emil Zetterquist"
+date: "3/3/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE)
+```
+
+
+### Question 1
+
+```{r}
+library(shiny)
+library(tidyverse)
+
+ui <- fluidPage(
+  textInput("name", "What's your name?"),
+  textOutput("greeting")
+)
+
+#The inputId has to be combined with an output command and to call the inputID you have to pair it with and input command
+server1 <- function(input, output, server) {
+  output$greeting <- renderText(paste0("Hello ", input$name))
+}
+
+# The "greeting" has to be a reactive()
+server2 <- function(input, output, server) {
+  greeting <- reactive({
+    paste0("Hello ", input$name)
+  })
+  output$greeting <- renderText(greeting())
+}
+
+
+#An "e" is missing form the inputId and the render function is missing
+server3 <- function(input, output, server) {
+  output$greeting <- renderText(paste0("Hello", input$name))
+}
+
+shinyApp(ui, server1)
+shinyApp(ui, server2)
+shinyApp(ui, server3)
+```
+
+### Question 2
+
+I'm trying to get the picture in here but I'll try to push the picture too.
+
+
+<br> <br> 
+
+
+```{r}
+library(here)
+
+![Question 2.](here(HW_section10.1/question2.jpeg))
+```
+
+![Question 2.](here(HW_section10.1/question2.jpeg))
