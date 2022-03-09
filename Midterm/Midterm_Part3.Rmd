@@ -1,0 +1,70 @@
+---
+title: "Midterm Part 3"
+author: "Emil Zetterquist"
+date: "3/8/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+### Data Variability in Graphs
+
+<br>
+
+#### Introduction
+
+Showing variability is essential for the viewer to draw conclusions. Bar plots in particular get a lot of criticism because of this. In this section we are going to look at how a bar plot can mislead the viewer into drawing slightly different conclusion than they might have done otherwise. The data used for this part was taken from the athletes data set in the data folder and the variables used are Sport and salary.
+
+<br>
+
+#### The Code
+
+<br>
+
+```{r}
+library(tidyverse)
+library(here)
+athletes_df <- read_csv(here("data/athletesdata.csv"))
+
+```
+
+```{r}
+salary_mean <- athletes_df %>% 
+  group_by(Sport) %>%
+  summarize(mean_sal = mean(salary)) %>% 
+  mutate(Sport = fct_reorder(Sport, mean_sal))
+
+ggplot(data = salary_mean, aes(x = Sport,
+                               y = mean_sal)) +
+  geom_bar(stat = "identity") +
+  labs(x = "Sport",
+       y = "Salary") +
+  coord_flip()
+```
+
+<br>
+
+The bar plot above shows the difference in mean in salaries between different different sports. From just taking a quick look at this graph it might seem that boxing is much more profitable than the other sports. But this graph shows nothing about the distribution of salary among athletes within the same sport. Bar plots can therefor be misleading when trying to show these kind of differences. In the graph below we try to show a bigger picture.
+
+<br>
+
+```{r}
+
+
+ggplot(data = salary_mean, aes(x = Sport,
+                               y = mean_sal)) +
+  geom_point(colour = "blue", size = 3) +
+  geom_point(data = athletes_df, aes(x = Sport,
+                                    y = salary)) +
+  labs(x = "Sport",
+       y = "Salary") +
+  coord_flip()
+```
+
+<br>
+
+This graph does a much better job showing the distribution. In this chunk we plotted the same mean from the bar plot above, but also the individual data points. What we now see is that the mean salary of boxers get a big bump from one athlete while the rest of them make about the same as athlets within other sports.
+
+<br>

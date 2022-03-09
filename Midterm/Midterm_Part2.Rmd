@@ -1,0 +1,71 @@
+---
+title: "Midterm Part 2"
+author: "Emil Zetterquist"
+date: "3/8/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+### Mapping Covid Deaths
+
+<br> 
+
+#### Introduction
+
+For this section I'm mapping Covid deaths per million in Europe. The data set used for this visualization was found on Kaggle and was in turn taken from  https://www.worldometers.info/coronavirus/#countries. 
+
+
+<br>
+
+#### The Code
+
+```{r}
+library(tidyverse)
+library(maps)
+library(here)
+```
+
+```{r}
+data_eu <- read_csv(here("data/europe_covid.csv")) %>% 
+  rename(region = "Country/Other")
+world <- map_data("world")
+mapdata <- left_join(world, data_eu, by = "region")
+
+```
+ 
+<br>
+ 
+We start off by reading in the data sets. While reading in the covid data set we rename the country variable so that it will match for when we join the data. The map data is taken from the maps package.
+
+<br>
+
+```{r}
+mapdata1 <- mapdata %>% filter(!is.na(`Deaths/ 1M pop`)) %>%
+  filter(region != "Russia")
+
+```
+
+<br>
+
+Here we filter out the countries that will not be included in the map. Since the region of interest Europe and that the countries found in the covid data set was all European countries, all non-European countries will give us N/A's. We also proceed to remove russia from the map beacuse the size of the country will make the map a lot harder to read.
+
+<br>
+
+```{r}
+ggplot(data = mapdata1, aes(x = long,
+                             y = lat,
+                             group = group)) +
+  geom_polygon(aes(fill = `Deaths/ 1M pop`), 
+               colour = "black") +
+  theme_void() +
+  scale_fill_viridis_b(name = "Deaths per Million")
+```
+
+<br>
+
+The final map is created using the new data set and we use a binned color scheme to make it easier to spot differences.
+
+<br> <br> <br>

@@ -1,0 +1,173 @@
+---
+title: "Midterm Part 1"
+author: "Emil Zetterquist"
+date: "3/8/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE)
+```
+
+### Grammar of Graphics
+
+<br>
+
+#### Introduction
+
+<br>
+
+This section aims to briefly describe the grammar of graphics, meaning the different components that together form a complete graphic illustration. The components in  question are:
+
+* **Data**: the data set used
+
+* **Mappings**: what is specified in the aes() function. What goes inside of this function are variables from your data.
+
+* **Geom Function**: the geometrical object used, for example geom_scatterplot or geom_histogram
+
+* **Stat**: a statistical transformation. Most geoms has a default that will do the trick so you rarely have to touch this one.
+
+* **Position**: the positioning of the grap for example stacked bar plots.
+
+* **Facet Funcion**: create different subplots
+
+* **Coordinate Function**: change the coordinate of the graph
+
+For this tutorial I will not include examples statistical transformation and positioning and coordinate function because the r package that is used (ggplot2) provides good defaults them. I will use the built in (mtcars) data set to provide examples of how to use grammar of graphics.
+
+<br>
+
+#### The Code
+
+```{r}
+library(ggplot2)
+library(tidyverse)
+
+ggplot(data = mtcars, aes(x = mpg)) +
+  geom_histogram()
+```
+
+This simple histogram of miles per gallon (mpg) for the cars in the data set specifies 3 of the components of graphics: data aesthetics and a geom function. We start off by specifying the data used for the visualization. We then used an aes() to specify what to map out, in this case just the mpg, and finally we chose the geom to display. 
+
+```{r}
+ggplot(data = mtcars, aes(x = mpg)) +
+  geom_histogram(bins = 20, 
+                 fill = "white", 
+                 colour = "black")
+```
+
+In this histogram we used some more mapping options to make the graph look better. the bins function specifies how much information we choose to show. In smaller data sets like the ones used in this example, having too many bins might make it harder to see any particular pattern. The fill and colour intuitively gives us a choice of what colours to use. 
+
+
+```{r}
+## creating a new variable for gearbox
+mtcars <- mtcars %>% 
+  mutate(gearbox = if_else(am == 1,
+                        "automatic",
+                        "manual"))
+
+
+
+ggplot(data = mtcars, aes(x = mpg)) +
+  geom_histogram(bins = 20,
+                 fill = "white",
+                 colour = "black") +
+  facet_wrap(~gearbox)
+```
+
+Sometimes is might be useful to create subplots of the data to illustrate the patterns withing categories. In this example we used the same graph used in the part above but we added faceting for whether the car ha an automatic or manual gearbox (1 being automatic). For instances when you have few categories or when the data is clustered, faceting is usually the cleanest way to separate categories.
+
+```{r}
+ggplot(data = mtcars, aes(x = gear,
+                          fill = gearbox))+
+  geom_bar()
+```
+
+Another way of separating categories is to use color. In this case we used a stacked bar plot to accomplish this. "Stacked" is actually a position component of the graphic but for bar plots it is the default option so we don't need to specify it. If we instead wanted a side-by-side option we could do it as follows:
+
+```{r}
+ggplot(data = mtcars, aes(x = gear,
+                          fill = gearbox)) +
+  geom_bar(position = "dodge")
+```
+
+<br< <br> <br>
+
+### Topic 1: Using The Right Color Scale
+
+<br>
+
+#### Introduction
+
+<br>
+
+In this part we are showing how the importance of choosing the right colour scale for your data. The data used in this section is the same default data set used above
+
+<br>
+
+#### The Code
+
+```{r}
+ggplot(data = mtcars, aes(x = wt,
+                          y = mpg)) +
+  geom_point(aes(colour = cyl))
+```
+
+<br>
+
+The graph is a perfect example for how to use color scale. By default R chooses a continuous color scheme for the amount of cylinders while it in fact is discrete. This can be changed using a different color scheme
+
+<br>
+
+```{r}
+ggplot(data = mtcars, aes(x = wt,
+                          y = mpg)) +
+  geom_point(aes(colour = cyl)) +
+  scale_color_viridis_b()
+```
+
+<br>
+
+By binning the continuous data it's easier to see what cylinder belongs to what point. We also see now that the cars in this data sets only have between 4 and 7 cylinders.
+
+<br> <br> <br>
+
+### Topic 2: Scaling Graphs
+
+<br>
+
+#### Introduction:
+
+Altering the scale of a graph is sometimes useful in order to show certain patterns but sometimes it can make the user draw wrongful conclusions. For this section we're using nfl data to make comparisons between teams' total points.
+
+
+```{r}
+library(here)
+standings_df <- read_csv(here("data/standings.csv"))
+
+two_df <- standings_df %>% 
+  filter(year == 2000) %>%
+  mutate(team = fct_reorder(team, points_for)) %>%
+  slice(1:5)
+
+ggplot(data = two_df, aes(y = points_for,
+                          x = team)) +
+  geom_point() +
+  coord_flip()
+```
+
+<br>
+
+In the graph above we see the points for each team for the 2000 season. Because of the alternations the differences between the teams are way bigger than they actually are. In the standard graph we get the full picture.
+
+```{r}
+ggplot(data = two_df, aes(y = points_for,
+                          x = team)) +
+  geom_point() +
+  ylim(0, 450) +
+  coord_flip()
+```
+
+<br>
+
+Here we can see that the difference isn't as big as the first graph showed.

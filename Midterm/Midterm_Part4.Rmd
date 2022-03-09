@@ -1,0 +1,76 @@
+---
+title: "Midterm Part 4"
+author: "Emil Zetterquist"
+date: "3/8/2022"
+output: html_document
+runtime: shiny
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+### Shiny
+
+<br>
+
+#### Introduction 
+
+<br>
+
+In this part we're creating a reactive shiny app. We will be using the athletes data set from the data folder to create histograms that will change depending on the sport of our choosing. The variables that will be available to choose from is salary, endorsements and total pay.
+
+<br>
+
+#### The Code
+
+<br>
+
+```{r}
+library(tidyverse)
+library(shiny)
+library(here)
+
+athletes_df <- read_csv(here("data/athletesdata.csv"))
+var_choice <- names(athletes_df)[5:7]
+```
+
+<br>
+
+The UI for this app contains two inputs that together will affect one output; the histogram. First of all we have the sport selection, secondly we have radio buttons for the the variable choice. In order to make the graph reactive we have to make the data set and the graph reactive. That happens in the server. The output is then a paired with a render function to display the final graph.
+
+<br>
+
+```{r}
+ui <- fluidPage(
+  sidebarLayout(sidebarPanel(
+    selectizeInput("Sport",
+                   label = "Choose a Sport",
+                   choices = levels(factor(athletes_df$Sport))),
+    radioButtons("varchoice",
+                 label = "Variable",
+                 choices = var_choice)),
+    mainPanel(plotOutput(outputId = "hist"))
+  )
+  
+)
+
+server <- function(input, output, session) {
+  athletes_sub <- reactive({
+    athletes_df %>% filter(Sport == input$Sport)
+  })
+  plot <- reactive({
+    ggplot(data = athletes_sub(), aes(x = .data[[input$varchoice]])) +
+      geom_histogram(colour = "black", 
+                     fill = "lightblue",
+                     bins = 10) +
+      theme_grey(base_size = 22)
+  })
+  output$hist <- renderPlot({
+    plot()
+  })
+}
+
+shinyApp(ui, server)
+```
+
